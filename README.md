@@ -1,7 +1,7 @@
 # Parathyroid Gland Systems Biology (Python Implementation)
 
 ## Aim
-This repository provides a Python implementation of the quantitative systems physiology model of parathyroid gland (PTG) biology published in:
+This repository provides a Python implementation of the quantitative systems physiology model of parathyroid gland (PTG) biology published in its basic form in:
 
 > Schappacher-Tilp G, Bieglmayer C, Binder C, Eberle C, Rudas M, Tilp M.  
 > *A mathematical model of parathyroid gland biology.*  
@@ -41,3 +41,6 @@ Originally designed to reproduce short- and long-term PTH responses, the framewo
 git clone https://github.com/schappag/ptg-biology.git
 cd ptg-biology
 pip install -r requirements.txt
+
+
+
