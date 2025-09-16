@@ -19,28 +19,29 @@ The model describes the regulation of parathyroid hormone (PTH) secretion, intra
 - Extensible Framework: Designed to be combined with models of medications (e.g., calcimimetics, [3]) or other physiological systems, such as bone remodelling, to study chronic kidney disease-mineral and bone disorder (CKD-MBD) in greater detail
 
 ## Structure
-parathyroid-model/
-│
-├── src/
-│   ├── model.py          # Core model implementation
-│   ├── parameters.py     # Model parameters and constants
-│   ├── utils.py          # Utility functions for simulations
-│   └── visualize.py      # Plotting and visualization tools
-│
-├── data/
-│   ├── input_profiles/   # Example input profiles for Ca²⁺, phosphate, and 1,25D
-│   └── validation/       # Validation data from published studies
-│
-├── notebooks/
-│   ├── simulation.ipynb  # Example simulations and analyses
-│   └── validation.ipynb  # Model validation against published data
-│
-├── tests/
-│   └── test_model.py     # Unit tests for the model
-│
-├── requirements.txt      # Python dependencies
-├── LICENSE               # License information
-└── README.md             # Project description and usage
+## Repository Structure
+
+- **src/**
+  - `model.py` — Core model implementation  
+  - `parameters.py` — Model parameters and constants  
+  - `utils.py` — Utility functions for simulations  
+  - `visualize.py` — Plotting and visualization tools  
+
+- **data/**
+  - **input_profiles/** — Example input profiles for Ca²⁺, phosphate, and 1,25D  
+  - **validation/** — Validation data from published studies  
+
+- **notebooks/**
+  - `simulation.ipynb` — Example simulations and analyses  
+  - `validation.ipynb` — Model validation against published data  
+
+- **tests/**
+  - `test_model.py` — Unit tests for the model  
+
+- `requirements.txt` — Python dependencies  
+- `LICENSE` — License information  
+- `README.md` — Project description and usage  
+
 
 
 ## Community Activity
