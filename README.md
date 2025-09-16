@@ -42,9 +42,8 @@ The model describes the regulation of parathyroid hormone (PTH) secretion, intra
 - `README.md` — Project description and usage  
 
 
-
-## Community Activity
-We welcome feedback and collaboration:  
+## Contributing
+We welcome feedback and contributions:  
 - Use **Issues** to suggest new applications (e.g., drug effects).  
 - Report bugs or model inconsistencies.  
 - Propose extensions such as parameter estimation routines, PK/PD model integration, or new regulatory pathways.  
