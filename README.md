@@ -38,6 +38,6 @@ Originally designed to reproduce short- and long-term PTH responses, the framewo
 
 ## Installation
 ```bash
-git clone https://github.com/your-org/ptg-systems-model.git
-cd ptg-systems-model
+git clone https://github.com/schappag/ptg-biology.git
+cd ptg-biology
 pip install -r requirements.txt
