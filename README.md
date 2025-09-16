@@ -19,7 +19,7 @@ The model describes the regulation of parathyroid hormone (PTH) secretion, intra
 - Extensible Framework: Designed to be combined with models of medications (e.g., calcimimetics, [3]) or other physiological systems, such as bone remodelling, to study chronic kidney disease-mineral and bone disorder (CKD-MBD) in greater detail
 
 ## Structure
-ptg_biology/
+parathyroid-model/
 │
 ├── src/
 │   ├── model.py          # Core model implementation
@@ -40,7 +40,8 @@ ptg_biology/
 │
 ├── requirements.txt      # Python dependencies
 ├── LICENSE               # License information
-└── README.md             # This file
+└── README.md             # Project description and usage
+
 
 ## Community Activity
 We welcome feedback and collaboration:  
