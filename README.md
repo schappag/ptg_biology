@@ -18,7 +18,6 @@ The model describes the regulation of parathyroid hormone (PTH) secretion, intra
 - Validated Predictions: The model's predictions have been validated against published experimental data for various scenarios, including acute hypocalcemia, hysteresis effects, and the development of secondary hyperparathyroidism [1,2].
 - Extensible Framework: Designed to be combined with models of medications (e.g., calcimimetics, [3]) or other physiological systems, such as bone remodelling, to study chronic kidney disease-mineral and bone disorder (CKD-MBD) in greater detail
 
-## Structure
 ## Repository Structure
 
 - **src/**
