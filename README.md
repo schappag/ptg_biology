@@ -11,12 +11,36 @@ The model describes the regulation of parathyroid hormone (PTH) secretion, intra
  It is particularly focused on the altered PTG biology found in patients with chronic kidney disease (CKD) on hemodialysis and is designed to serve as a tool for studying secondary hyperparathyroidism and exploring treatment strategies
 
 ## Key Features
-• Comprehensive Physiology: Captures the complex network regulating PTH, including the effects of ionized calcium (Ca2+), phosphate, and 1,25-dihydroxyvitamin D3 (1,25D).
-• CaSR-Centric Model: The model's core is the Calcium-Sensing Receptor (CaSR), the crucial regulator of PTG function and biology.
-• Multi-Timescale Dynamics: Accurately simulates the different timescales of PTG adaptation, from the release of stored PTH within seconds to cellular proliferation over days and weeks.
-• Adaptive Mechanisms: Explicitly models key adaptations such as changes in intracellular PTH degradation, PTH production rate, and PTG cellular proliferation.
-• Validated Predictions: The model's predictions have been validated against published experimental data for various scenarios, including acute hypocalcemia, hysteresis effects, and the development of secondary hyperparathyroidism [1,2].
-• Extensible Framework: Designed to be combined with models of medications (e.g., calcimimetics, [3]) or other physiological systems, such as bone remodelling, to study chronic kidney disease-mineral and bone disorder (CKD-MBD) in greater detail
+- Comprehensive Physiology: Captures the complex network regulating PTH, including the effects of ionized calcium (Ca2+), phosphate, and 1,25-dihydroxyvitamin D3 (1,25D).
+- CaSR-Centric Model: The model's core is the Calcium-Sensing Receptor (CaSR), the crucial regulator of PTG function and biology.
+- Multi-Timescale Dynamics: Accurately simulates the different timescales of PTG adaptation, from the release of stored PTH within seconds to cellular proliferation over days and weeks.
+- Adaptive Mechanisms: Explicitly models key adaptations such as changes in intracellular PTH degradation, PTH production rate, and PTG cellular proliferation.
+- Validated Predictions: The model's predictions have been validated against published experimental data for various scenarios, including acute hypocalcemia, hysteresis effects, and the development of secondary hyperparathyroidism [1,2].
+- Extensible Framework: Designed to be combined with models of medications (e.g., calcimimetics, [3]) or other physiological systems, such as bone remodelling, to study chronic kidney disease-mineral and bone disorder (CKD-MBD) in greater detail
+
+## Structure
+ptg_biology/
+│
+├── src/
+│   ├── model.py          # Core model implementation
+│   ├── parameters.py     # Model parameters and constants
+│   ├── utils.py          # Utility functions for simulations
+│   └── visualize.py      # Plotting and visualization tools
+│
+├── data/
+│   ├── input_profiles/   # Example input profiles for Ca²⁺, phosphate, and 1,25D
+│   └── validation/       # Validation data from published studies
+│
+├── notebooks/
+│   ├── simulation.ipynb  # Example simulations and analyses
+│   └── validation.ipynb  # Model validation against published data
+│
+├── tests/
+│   └── test_model.py     # Unit tests for the model
+│
+├── requirements.txt      # Python dependencies
+├── LICENSE               # License information
+└── README.md             # This file
 
 ## Community Activity
 We welcome feedback and collaboration:  
