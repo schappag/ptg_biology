@@ -49,7 +49,7 @@ We welcome feedback and contributions:
 - Propose extensions such as parameter estimation routines, PK/PD model integration, or new regulatory pathways.  
 
 ## Implementation
-- Implemented in **Python**
+- Implemented in **Python** 3.13
 - Includes parameter sets and initial conditions matching published simulations.  
 - Example notebooks (`/notebooks`) show:  
   - Baseline homeostasis  
