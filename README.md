@@ -43,9 +43,9 @@ We welcome feedback and contributions:
 ## Implementation
 - Implemented in **Python** 3.13
 - Includes parameter sets and initial conditions matching published simulations.  
-- Example notebooksshow:  
-  - Acute calcium clamp experiments  
-  - Chronic kidney disease simulation  
+- Example notebooks show:  
+  - Calcium cycling experiments  
+  - Mild but chronic hypocalcemia  
   - Pharmacological interventions (e.g., calcimimetics, vitamin D analogues)  
 
 ## Installation
