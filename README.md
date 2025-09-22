@@ -34,9 +34,6 @@ The model describes the regulation of parathyroid hormone (PTH) secretion, intra
 - `main.py` — Main entry point to run the model  
 - `README.md` — Project description and usage
 
-- **`CONTRIBUTING.md`** — Guidelines for contributions.  
-
-
 ## Contributing
 We welcome feedback and contributions:  
 - Use **Issues** to suggest new applications (e.g., drug effects).  
