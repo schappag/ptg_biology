@@ -46,8 +46,7 @@ We welcome feedback and contributions:
 ## Implementation
 - Implemented in **Python** 3.13
 - Includes parameter sets and initial conditions matching published simulations.  
-- Example notebooks (`/notebooks`) show:  
-  - Baseline homeostasis  
+- Example notebooksshow:  
   - Acute calcium clamp experiments  
   - Chronic kidney disease simulation  
   - Pharmacological interventions (e.g., calcimimetics, vitamin D analogues)  
