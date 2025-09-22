@@ -46,7 +46,7 @@ We welcome feedback and contributions:
 - Example notebooks show:  
   - Calcium cycling experiments  
   - Mild but chronic hypocalcemia  
-  - Pharmacological interventions (e.g., calcimimetics, vitamin D analogues)  
+  - Response to changes in phosphate and calcitriol
 
 ## Installation
 ```bash
