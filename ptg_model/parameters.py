@@ -1,90 +1,94 @@
+'''
+parameters.py
+Utility functions for computing patient-specific steady states of the PTG model.
+'''
+
 import numpy as np
-from .utils import stim, sens, smooth_pw
-from .model import releaseRate, rateAdj, DefaultParameters
+from ptg_model.core_functions import release_rate, rate_adj, defaultparameters
+from ptg_model.utils import stim, sens, smooth_pw
 
-def DefaultCalciumParams():
-    return dict(lower=4.8, upper=5.2, unit="mg/dL")
 
-def DefaultPhosphateParams():
-    return dict(lower=3.2, upper=4.0, unit="mg/dL")
+def steady_state(c, copt, dopt):
+    '''
+    Compute the patient specific steady state of the PTG model given patient-specific calcium, phosphate, calcitriol, and PTH levels.
+    Assumes phosphate and calcitriol are optimal.
+    '''
 
-def DefaultVitaminDParams():
-    return dict(lower=18, upper=61, unit="ng/L")
-
-def SteadyState(C, Copt, Dopt):
-    a = rateAdj(1, DefaultParameters("prolif"))
+    a = rate_adj(1, defaultparameters("prolif"))
     ka = 0.001 * 60
-    k2 = 0.03
-    k1 = 4 * k2
-    S2 = 1 / (1 + k2 / k1) * np.exp(-ka / a)
-    S1 = k2 * S2 / k1
-    S3 = rateAdj(1, DefaultParameters("prod")) * S1 / (
-        releaseRate(C / 4, 1) + rateAdj(1, DefaultParameters("degrad"))
+    k2sq = 0.03*60
+    k1sq = 4 * k2sq
+    s2 = 1 / (1 + k2sq / k1sq) * np.exp(-ka / a)
+    s1 = k2sq * s2 / k1sq
+    s3 = rate_adj(1, defaultparameters("prod")) * s1 / (
+        release_rate(c / 4, 1) + rate_adj(1, defaultparameters("degrad"))
     )
-    S4 = S3 * releaseRate(C / 4, 1) / rateAdj(1, DefaultParameters("clear"))
-    return [S1, S2, S3, S4, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, Copt, Dopt, 0, 0, 0, 1]
+    s4 = s3 * release_rate(c / 4, 1) / rate_adj(1, defaultparameters("clear"))
+    return [s1, s2, s3, s4, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, copt, dopt, 0, 0, 0, 1]
 
-def SteadyState_pat(C_pat, P_pat, D_pat, Copt, Popt, Dopt, PTH_pat, endpoints_D, endpoints_P):
-    PTH = PTH_pat/9.434*3
+def steadystate_pat(c_pat, p_pat, d_pat, copt, popt, dopt, pth_pat, endpoints_d, endpoints_p, gfr):
+    '''
+    Compute the patient specific steady state of the PTG model given patient-specific calcium, phosphate, calcitriol, and PTH levels.'''
+
+    pth = pth_pat/9.434*3
     ka = 0.001*60
-    k2SQ = 0.03
-    k1SQ = 4*k2SQ
+    k2sq = 0.03*60
+    k1sq = 4*k2sq
    
     kca = 0.5
     rca = 0.5
-    kD = 0.001
-    rD = 0.001
-    D_pat= D_pat*smooth_pw(0, endpoints_D)
-    P_pat = P_pat*smooth_pw(0, endpoints_P)
-    aaCa = stim(C_pat-Copt, 'C')
-    aaP  = stim(P_pat-Popt, 'P')
-    aaD  = stim(D_pat-Dopt, 'D')
+    kd = 0.001
+    rd = 0.001
+    d_pat= d_pat*smooth_pw(0, endpoints_d)
+    p_pat = p_pat*smooth_pw(0, endpoints_p)
+    aaca = stim(c_pat-copt, 'c')
+    aap  = stim(p_pat-popt, 'p')
+    aad  = stim(d_pat-dopt, 'd')
 
-    yC = aaCa/(1+aaCa*np.sign(aaCa))
-    yP = aaP/(1+aaP*np.sign(aaP))
-    yD = aaD/(1+aaD*np.sign(aaD))
+    yc = aaca/(1+aaca*np.sign(aaca))
+    yp = aap/(1+aap*np.sign(aap))
+    yd = aad/(1+aad*np.sign(aad))
 
-    a  = kca*(yC-2*yP)
+    a  = kca*(yc-2*yp)
     b  = kca*0.1
-    aq = kD*(yD-2*yP)
-    bq = kD*0.1
+    aq = kd*(yd-2*yp)
+    bq = kd*0.1
 
-    ySC = (b-b*(bq-rD)/(aq-rD)-rca)/(a-b*bq/(aq-rD)-rca)
-    ySD = (-rD+bq*(1-ySC))/(aq-rD)
+    ysc = (b-b*(bq-rd)/(aq-rd)-rca)/(a-b*bq/(aq-rd)-rca)
+    ysd = (-rd+bq*(1-ysc))/(aq-rd)
 
-    Csensed = sens(ySC, ySD)*C_pat
-    Dsensed = sens(ySC, ySD)*D_pat
+    csensed = sens(ysc, ysd)*c_pat
+    dsensed = sens(ysc, ysd)*d_pat
 
-    aCa = stim(Csensed-Copt, 'C')
+    aca = stim(csensed-copt, 'c')
 
-    Cstar  = aCa/(1+aCa*np.sign(aCa))
-    Pstar  = aaP/(1+aaP*np.sign(aaP))
-    CSstar = rca/(rca-50*kca*(Cstar-Pstar))
+    cstar  = aca/(1+aca*np.sign(aca))
+    pstar  = aap/(1+aap*np.sign(aap))
+    csstar = rca/(rca-50*kca*(cstar-pstar))
 
-    ParamPNew = [Popt*0.323,0.3, 0.15, 4.5]
-    KP = ParamPNew[0]
-    aPhos = ParamPNew[1]
-    bPhos = ParamPNew[2]
-    gPhos = ParamPNew[3]
+    param_phos = [popt*0.323,0.3, 0.15, 4.5]
+    kp = param_phos[0]
+    aphos = param_phos[1]
+    bphos = param_phos[2]
+    gphos = param_phos[3]
 
-    FP = aPhos + (bPhos - aPhos) * (P_pat * 0.323) ** gPhos / (
-        (P_pat * 0.323) ** gPhos + KP**gPhos
+    fp = aphos + (bphos - aphos) * (p_pat * 0.323) ** gphos / (
+        (p_pat * 0.323) ** gphos + kp**gphos
     )
-    FP0 = aPhos + (bPhos - aPhos) * (Popt * 0.323) ** gPhos / (
-        (Popt * 0.323) ** gPhos + KP**gPhos
+    fp0 = aphos + (bphos - aphos) * (popt * 0.323) ** gphos / (
+        (popt * 0.323) ** gphos + kp**gphos
     )
 
-    rP = FP0 / FP
-    GFR = np.exp(-10**(-3)*365*2)    
-    S3 = PTH*rateAdj(GFR, DefaultParameters("clear"))/releaseRate(Csensed/4, rP)
+    rp = fp0 / fp
+    s3 = pth*rate_adj(gfr, defaultparameters("clear"))/release_rate(csensed/4, rp)
 
 
-    S1 = (releaseRate(Csensed/4, rP)+rateAdj(CSstar, DefaultParameters("degrad")))*S3 / rateAdj(CSstar, DefaultParameters("prod"))
-    S2 = k1SQ*S1/k2SQ
+    s1 = (release_rate(csensed/4, rp)+rate_adj(csstar, defaultparameters("degrad")))*s3 / rate_adj(csstar, defaultparameters("prod"))
+    s2 = k1sq*s1/k2sq
 
-    X = np.exp(ka/rateAdj(CSstar, DefaultParameters("prolif")))*(S1+S2)
+    X = np.exp(ka/rate_adj(csstar, defaultparameters("prolif")))*(s1+s2)
 
-    y_pat = np.array([S1, S2, S3, PTH, ySC, ySD, yC, yD, yP, CSstar, Cstar, CSstar, Cstar, CSstar, Cstar,
-                      Csensed, Dsensed, Pstar, Pstar, Pstar, X])
+    y_pat = np.array([s1, s2, s3, pth, ysc, ysd, yc, yd, yp, csstar, cstar, csstar, cstar, csstar, cstar,
+                      csensed, dsensed, pstar, pstar, pstar, X])
 
     return y_pat
