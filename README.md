@@ -26,13 +26,8 @@ The model describes the regulation of parathyroid hormone (PTH) secretion, intra
   - `utils.py` — Utility functions for simulations  
   - `visualize.py` — Plotting and visualization tools  
 
-- **data/**
-  - **input_profiles/** — Example input profiles for Ca²⁺, phosphate, and 1,25D  
-  - **validation/** — Validation data from published studies  
 
-- **notebooks/**
-  - `simulation.ipynb` — Example simulations and analyses  
-  - `validation.ipynb` — Model validation against published data  
+`example_notebook.ipynb` — Example simulations and analyses  
 
 - **tests/**
   - `test_model.py` — Unit tests for the model  
