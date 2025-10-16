@@ -38,7 +38,7 @@ The model describes the regulation of parathyroid hormone (PTH) secretion, intra
 - `requirements.txt` — Python dependencies  
 
 - `LICENSE` — License information
-- .pylintrc - setup for pyling
+- `.pylintrc` - setup for pyling
 - `README.md` — Project description and usage
 
 ## Contributing
