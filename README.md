@@ -28,20 +28,17 @@ The model describes the regulation of parathyroid hormone (PTH) secretion, intra
   - `utils.py` — Utility functions (e.g. smooth piecewise-linear function, stimulus function, sensitivity function)  
   - `parameters.py` — Steady state calculations
 
-<<<<<<< HEAD
-
-`example_notebook.ipynb` — Example simulations and analyses  
+- **`example_notebook.ipynb`** — Example simulations and analyses  
 
 - **tests/**
-  - `test_model.py` — Unit tests for the model  
+  - `test_model_deriv.py` — Unit tests for the model
+  - `test_utils_fucntions.py` — Unit tests for utils functions
+  - `test_core_fucntions.py` — Unit tests core functions
 
 - `requirements.txt` — Python dependencies  
-=======
-- `config` — Configuration file(s) for model parameters  
-- `example_notebook.ipynb` — Example analysis and simulation notebook  
->>>>>>> 9866afb40496006d1705fbd7e2cd8e330fffb865
-- `LICENSE` — License information  
-- `main.py` — Main entry point to run the model  
+
+- `LICENSE` — License information
+- .pylintrc - setup for pyling
 - `README.md` — Project description and usage
 
 ## Contributing
@@ -56,13 +53,20 @@ We welcome feedback and contributions:
 - Example notebooks show:  
   - Calcium cycling experiments  
   - Mild but chronic hypocalcemia  
-  - Response to changes in phosphate and calcitriol
+  - Response to chronic changes in phosphate and calcitriol
 
 ## Installation
 ```bash
 git clone https://github.com/schappag/ptg-biology.git
 cd ptg-biology
 pip install -r requirements.txt
+
+
+## Running Tests
+Install the dependencies and run all tests with:
+```bash
+pip install -r requirements.txt
+pytest -v
 
 
 
