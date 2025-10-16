@@ -23,10 +23,10 @@ The model describes the regulation of parathyroid hormone (PTH) secretion, intra
 ## Repository Structure
 
 - **ptg_model/**
-  - `model.py` — Core model implementation (ODEs, SteadyState, SteadyState_pat)  
-  - `parameters.py` — Model parameters, units, and constants  
-  - `utils.py` — Utility functions (e.g. smooth_pw, exp_drop, exp_rise)  
-  - `visualize.py` — Plotting and visualization tools  
+  - `model.py` — Core model implementation (System of ODEs)
+  - `core_functions.py`(rate adjuments, pth release rate)
+  - `utils.py` — Utility functions (e.g. smooth piecewise-linear function, stimulus function, sensitivity function)  
+  - `parameters.py` — Steady state calculations
 
 <<<<<<< HEAD
 
