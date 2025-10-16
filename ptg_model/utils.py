@@ -65,6 +65,7 @@ def smooth_pw_matrix(x, endpoints, alpha=100):
     """
     return np.array([smooth_pw(val, endpoints, alpha) for val in x])
 
+
 def stim(val, param):
     """
     compute the stimulation function for calcium, phosphate, or calcitriol.
@@ -94,13 +95,17 @@ def stim(val, param):
         c1, c2, k, l = 0.0, 0.0, 1.0, 1.0  # Default fallback values
 
     s = l / (1 + np.exp(-k * (val - c1))) + l / (1 + np.exp(-k * (val - c2))) - l
-    cutoff = l / (1 + np.exp(-k * ((c2 - c1) / 2))) + l / (1 + np.exp(-k * ((c1 - c2) / 2))) - l
+    cutoff = (
+        l / (1 + np.exp(-k * ((c2 - c1) / 2)))
+        + l / (1 + np.exp(-k * ((c1 - c2) / 2)))
+        - l
+    )
     return np.where(np.abs(s) > cutoff, s, 0)
 
 
 def sens(c, d):
     """
-    compute a sensitivity scaling factor 
+    compute a sensitivity scaling factor
 
     parameters
     ----------
@@ -114,9 +119,6 @@ def sens(c, d):
     float or ndarray
         Normalized sensitivity scaling factor.
     """
-    endpoints = np.array([
-        [0, 0.5, 1, 2, 10],
-        [0.65, 0.7, 1, 1.01, 1.05]
-    ])
+    endpoints = np.array([[0, 0.5, 1, 2, 10], [0.65, 0.7, 1, 1.01, 1.05]])
     avg = (c + d) / 2
     return smooth_pw(avg, endpoints) / smooth_pw(1, endpoints)

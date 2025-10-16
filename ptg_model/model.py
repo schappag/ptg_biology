@@ -2,27 +2,43 @@
 model.py
 System of ODEs describing PTG biology.
 """
+
 import numpy as np
 from ptg_model.utils import stim, sens, smooth_pw
 from ptg_model.core_functions import rate_adj, defaultparameters, release_rate
 
-def deriv(t, y, endpoints_p, endpoints_d, copt, dopt, popt,
-          c_pat, p_pat, d_pat, s0, tm, gfr_in, y_pat,
-          calcium_clamp=True):
+
+def deriv(
+    t,
+    y,
+    endpoints_p,
+    endpoints_d,
+    copt,
+    dopt,
+    popt,
+    c_pat,
+    p_pat,
+    d_pat,
+    s0,
+    tm,
+    gfr_in,
+    y_pat,
+    calcium_clamp=True,
+):
     """
-        Defines the system of ODEs describing PTG biology.
+    Defines the system of ODEs describing PTG biology.
 
-        Parameters
-        ----------
-        *args : tuple
-            Model parameters including phosphate, calcitriol, and calcium input.
+    Parameters
+    ----------
+    *args : tuple
+        Model parameters including phosphate, calcitriol, and calcium input.
 
-        Returns
-        -------
-        function
-            A system of ODEs suitable for `solve_ivp`.
-        """
-    tauca = 1 # Time parameters
+    Returns
+    -------
+    function
+        A system of ODEs suitable for `solve_ivp`.
+    """
+    tauca = 1  # Time parameters
     taud = 0.1
     taup = 0.1
     kca = 0.5
@@ -34,18 +50,18 @@ def deriv(t, y, endpoints_p, endpoints_d, copt, dopt, popt,
 
     k2 = 0.03 * 60  # Transition rates
     k1 = 4 * k2
-    d = d_pat*smooth_pw(t/(tm), endpoints_d)
+    d = d_pat * smooth_pw(t / (tm), endpoints_d)
     if calcium_clamp:
-        c = c_pat                          
+        c = c_pat
     else:
-        c = c_pat * y[21] * y[22] 
-    p = p_pat*smooth_pw(t/(tm), endpoints_p)
+        c = c_pat * y[21] * y[22]
+    p = p_pat * smooth_pw(t / (tm), endpoints_p)
 
-    parameter_phos= [popt*0.323,0.3, 0.15, 4.5]
+    parameter_phos = [popt * 0.323, 0.3, 0.15, 4.5]
     kp = parameter_phos[0]
-    aphos =parameter_phos[1]
-    bphos =parameter_phos[2]
-    gphos =parameter_phos[3]
+    aphos = parameter_phos[1]
+    bphos = parameter_phos[2]
+    gphos = parameter_phos[3]
 
     # convert phosphate to mM
     fp = aphos + (bphos - aphos) * (p * 0.323) ** gphos / (
@@ -77,13 +93,12 @@ def deriv(t, y, endpoints_p, endpoints_d, copt, dopt, popt,
     dydt[3] = release_rate(y[15] / 4, rp) * y[2] - y[3] * rate_adj(
         gfr_in, defaultparameters("clear")
     )
- 
 
-    dydt[4] = kca *((y[6] - 2*y[8])*y[4] + 0.1* (-1 + y[5])) + rca * (1 - y[4])
+    dydt[4] = kca * ((y[6] - 2 * y[8]) * y[4] + 0.1 * (-1 + y[5])) + rca * (1 - y[4])
 
-    dydt[5] = kd * ((y[7] - 2*y[8])*y[5] + 0.1* (-1 + y[4])) + rd * (1 - y[5])
+    dydt[5] = kd * ((y[7] - 2 * y[8]) * y[5] + 0.1 * (-1 + y[4])) + rd * (1 - y[5])
     dydt[6] = (
-        (stim(c- copt, "c") * (1 - np.sign(stim(c- copt, "c")) * y[6]) - y[6])
+        (stim(c - copt, "c") * (1 - np.sign(stim(c - copt, "c")) * y[6]) - y[6])
         * tauca
         * 0.15
     )
@@ -146,15 +161,15 @@ def deriv(t, y, endpoints_p, endpoints_d, copt, dopt, popt,
     dydt[19] = (
         (stim(p - popt, "p") * (1 - np.sign(stim(p - popt, "p")) * y[19]) - y[19])
         * taup
-        * 10 ** (-1)*0.5
+        * 10 ** (-1)
+        * 0.5
     )
 
-    dydt[20] =  10 ** (-5) * (max(0, ((y[0] + y[1]) / s0 - 1)) ** (2 / 3))
+    dydt[20] = 10 ** (-5) * (max(0, ((y[0] + y[1]) / s0 - 1)) ** (2 / 3))
 
     c_f = copt / 4
- 
 
-    pd = [0.001/4*c_f*0.4 ,0.1]
+    pd = [0.001 / 4 * c_f * 0.4, 0.1]
     pdd = [0.05, 0.1]
 
     target21 = 1 + np.tanh(pd[1] * (y[3] - y_pat[3]))
@@ -162,8 +177,6 @@ def deriv(t, y, endpoints_p, endpoints_d, copt, dopt, popt,
 
     dydt[21] = pd[0] * (target21 - y[21])
     dydt[22] = pdd[0] * (target22 - y[22])
-
-
 
     threshold = 1e-12
 

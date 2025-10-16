@@ -18,14 +18,17 @@ The model describes the regulation of parathyroid hormone (PTH) secretion, intra
 - Validated Predictions: The model's predictions have been validated against published experimental data for various scenarios, including acute hypocalcemia, hysteresis effects, and the development of secondary hyperparathyroidism [1,2].
 - Extensible Framework: Designed to be combined with models of medications (e.g., calcimimetics, [3]) or other physiological systems, such as bone remodelling, to study chronic kidney disease-mineral and bone disorder (CKD-MBD) in greater detail
 
+### Repository structure
+
 ## Repository Structure
 
-- **src/**
-  - `model.py` — Core model implementation  
-  - `parameters.py` — Model parameters and constants  
-  - `utils.py` — Utility functions for simulations  
+- **ptg_model/**
+  - `model.py` — Core model implementation (ODEs, SteadyState, SteadyState_pat)  
+  - `parameters.py` — Model parameters, units, and constants  
+  - `utils.py` — Utility functions (e.g. smooth_pw, exp_drop, exp_rise)  
   - `visualize.py` — Plotting and visualization tools  
 
+<<<<<<< HEAD
 
 `example_notebook.ipynb` — Example simulations and analyses  
 
@@ -33,9 +36,13 @@ The model describes the regulation of parathyroid hormone (PTH) secretion, intra
   - `test_model.py` — Unit tests for the model  
 
 - `requirements.txt` — Python dependencies  
+=======
+- `config` — Configuration file(s) for model parameters  
+- `example_notebook.ipynb` — Example analysis and simulation notebook  
+>>>>>>> 9866afb40496006d1705fbd7e2cd8e330fffb865
 - `LICENSE` — License information  
-- `README.md` — Project description and usage  
-
+- `main.py` — Main entry point to run the model  
+- `README.md` — Project description and usage
 
 ## Contributing
 We welcome feedback and contributions:  
@@ -44,13 +51,12 @@ We welcome feedback and contributions:
 - Propose extensions such as parameter estimation routines, PK/PD model integration, or new regulatory pathways.  
 
 ## Implementation
-- Implemented in **Python**
+- Implemented in **Python** 3.13
 - Includes parameter sets and initial conditions matching published simulations.  
-- Example notebooks (`/notebooks`) show:  
-  - Baseline homeostasis  
-  - Acute calcium clamp experiments  
-  - Chronic kidney disease simulation  
-  - Pharmacological interventions (e.g., calcimimetics, vitamin D analogues)  
+- Example notebooks show:  
+  - Calcium cycling experiments  
+  - Mild but chronic hypocalcemia  
+  - Response to changes in phosphate and calcitriol
 
 ## Installation
 ```bash
