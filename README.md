@@ -3,10 +3,8 @@
 ## Overview
 This repository provides a Python implementation of the quantitative systems physiology model of parathyroid gland (PTG) biology published in its basic form in:
 
-> Schappacher-Tilp G, Bieglmayer C, Binder C, Eberle C, Rudas M, Tilp M.  
-> *A mathematical model of parathyroid gland biology.*  
-> Physiological Reports. 2019; 7(11): e14089. https://doi.org/10.14814/phy2.14089
-> 
+> Schappacher-Tilp G, Cherif A, Fuertinger DH, Bushinsky D, Kotanko P. A mathematical model of parathyroid gland biology. Physiol Rep. 2019 Apr;7(7):e14045. doi: 10.14814/phy2.14045. PMID: 30927339; PMCID: PMC6440916.
+
 The model describes the regulation of parathyroid hormone (PTH) secretion, intracellular degradation, synthesis, clearance, and proliferation incorporating effects of extracellular ionozed calcium, phosphate, and calcitriol.  
  It is particularly focused on the altered PTG biology found in patients with chronic kidney disease (CKD) on hemodialysis and is designed to serve as a tool for studying secondary hyperparathyroidism and exploring treatment strategies
 
@@ -19,8 +17,6 @@ The model describes the regulation of parathyroid hormone (PTH) secretion, intra
 - Extensible Framework: Designed to be combined with models of medications (e.g., calcimimetics, [3]) or other physiological systems, such as bone remodelling, to study chronic kidney disease-mineral and bone disorder (CKD-MBD) in greater detail
 
 ### Repository structure
-
-## Repository Structure
 
 - **ptg_model/**
   - `model.py` — Core model implementation (System of ODEs)
